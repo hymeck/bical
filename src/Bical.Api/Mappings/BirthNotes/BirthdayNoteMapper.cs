@@ -9,7 +9,7 @@ namespace Bical.Api.Mappings.BirthNotes
     {
         public CreateMapper()
         {
-            CreateMap<CreateBirthdayNoteCommand, BirthNote>();
+            CreateMap<CreateBirthNoteCommand, BirthNote>();
         }
     }
 

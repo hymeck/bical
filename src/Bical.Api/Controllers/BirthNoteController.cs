@@ -9,7 +9,7 @@ namespace Bical.Api.Controllers
     public class BirthNoteController : ApiControllerBase
     {
         [HttpPost("create")]
-        public async Task<ActionResult<uint>> Create([FromBody] CreateBirthdayNoteCommand command)
+        public async Task<ActionResult<uint>> Create([FromBody] CreateBirthNoteCommand command)
         {
             var result = await Mediator.Send(command);
             return CreatedAtAction("GetBirth", new {id = result.BirthNoteId}, result);

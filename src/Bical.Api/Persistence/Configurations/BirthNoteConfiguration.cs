@@ -23,22 +23,11 @@ namespace Bical.Api.Persistence.Configurations
                 .IsRequired();
 
             builder
-                .Property(e => e.FirstName)
-                .HasColumnName("firstname")
+                .Property(e => e.DisplayedName)
+                .HasColumnName("name")
                 .IsRequired()
-                .HasMaxLength(40);
-
-            builder
-                .Property(e => e.MiddleName)
-                .HasColumnName("middlename")
-                .IsRequired(false)
-                .HasMaxLength(40);
-            
-            builder
-                .Property(e => e.LastName)
-                .HasColumnName("lastname")
-                .IsRequired(false)
-                .HasMaxLength(40);
+                .HasMaxLength(100)
+                .HasComment("name for displaying");
             
             builder
                 .Property(e => e.BirthDate)
