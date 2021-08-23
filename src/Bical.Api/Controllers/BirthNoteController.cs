@@ -23,12 +23,22 @@ namespace Bical.Api.Controllers
             return option.Match<IActionResult>(Ok, NotFound);
         }
 
-        [HttpGet("")]
+        [HttpGet("calendar")]
         public async Task<IActionResult> GetCalendar()
         {
             var query = new GetBirthCalendarQuery();
             var calendar = await Mediator.Send(query);
             return Ok(calendar);
         }
+        
+        [HttpGet("")]
+        public async Task<IActionResult> GetNearestBirthdays([FromQuery] int days)
+        {
+            var query = new GetNearestBirthdaysQuery(days);
+            var calendar = await Mediator.Send(query);
+            return Ok(calendar);
+        }
+        
+        
     }
 }
