@@ -18,7 +18,7 @@ namespace Bical.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBirth(ushort id)
         {
-            var query = new GetBirthdayNoteNyIdQuery(id);
+            var query = new GetBirthNoteByIdQuery(id);
             var option = await Mediator.Send(query);
             return option.Match<IActionResult>(Ok, NotFound);
         }

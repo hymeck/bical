@@ -4,11 +4,11 @@ using MediatR;
 
 namespace Bical.Api.Cqrs.Queries.BirthNotes
 {
-    public class GetBirthdayNoteNyIdQuery: IRequest<Option<BirthNoteDtoResponse>>
+    public class GetBirthNoteByIdQuery: IRequest<Option<BirthNoteDtoResponse>>
     {
         public ushort Id { get; }
 
-        public GetBirthdayNoteNyIdQuery(ushort id)
+        public GetBirthNoteByIdQuery(ushort id)
         {
             Id = id;
         }

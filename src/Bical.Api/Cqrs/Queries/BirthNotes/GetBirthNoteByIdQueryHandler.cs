@@ -11,21 +11,22 @@ using MediatR;
 namespace Bical.Api.Cqrs.Queries.BirthNotes
 {
     public class
-        GetBirthdayNoteNyIdQueryHandler : IRequestHandler<GetBirthdayNoteNyIdQuery, Option<BirthNoteDtoResponse>>
+        GetBirthNoteByIdQueryHandler : IRequestHandler<GetBirthNoteByIdQuery, Option<BirthNoteDtoResponse>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetBirthdayNoteNyIdQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetBirthNoteByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<Option<BirthNoteDtoResponse>> Handle(GetBirthdayNoteNyIdQuery request,
+        public async Task<Option<BirthNoteDtoResponse>> Handle(GetBirthNoteByIdQuery request,
             CancellationToken cancellationToken)
         {
-            var entity = await _context.Context.Set<BirthNote>().FindAsync(new object[] {request.Id}, cancellationToken);
+            var entity = await _context.Context.Set<BirthNote>()
+                .FindAsync(new object[] {request.Id}, cancellationToken);
             return entity != null
                 ? _mapper.Map<BirthNote, BirthNoteDtoResponse>(entity).ToSome()
                 : Option<BirthNoteDtoResponse>.None;
