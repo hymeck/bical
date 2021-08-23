@@ -4,7 +4,7 @@ namespace Bical.Api.Entities
 {
     public class BirthNote : IAuditableDate
     {
-        public ushort Id { get; set; }
+        public ulong Id { get; set; }
         public string DisplayedName { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime Added { get; set; }
