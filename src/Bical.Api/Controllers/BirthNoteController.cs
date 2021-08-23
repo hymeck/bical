@@ -22,5 +22,13 @@ namespace Bical.Api.Controllers
             var option = await Mediator.Send(query);
             return option.Match<IActionResult>(Ok, NotFound);
         }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetCalendar()
+        {
+            var query = new GetBirthCalendarQuery();
+            var calendar = await Mediator.Send(query);
+            return Ok(calendar);
+        }
     }
 }
