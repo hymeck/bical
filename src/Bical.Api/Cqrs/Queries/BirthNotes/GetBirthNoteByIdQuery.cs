@@ -6,9 +6,9 @@ namespace Bical.Api.Cqrs.Queries.BirthNotes
 {
     public class GetBirthNoteByIdQuery: IRequest<Option<BirthNoteDtoResponse>>
     {
-        public ushort Id { get; }
+        public ulong Id { get; }
 
-        public GetBirthNoteByIdQuery(ushort id)
+        public GetBirthNoteByIdQuery(ulong id)
         {
             Id = id;
         }

@@ -16,7 +16,7 @@ namespace Bical.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBirth(ushort id)
+        public async Task<IActionResult> GetBirth(ulong id)
         {
             var query = new GetBirthNoteByIdQuery(id);
             var option = await Mediator.Send(query);
@@ -38,7 +38,15 @@ namespace Bical.Api.Controllers
             var calendar = await Mediator.Send(query);
             return Ok(calendar);
         }
-        
-        
+
+        [HttpPut("{id}")]
+        [HttpPost("{id}")]
+        public async Task<IActionResult> UpdateBirthNote(ulong id, [FromBody] UpdateBirthNoteCommand command)
+        {
+            if (id != command.Id)
+                return BadRequest();
+            var updated = await Mediator.Send(command);
+            return updated ? NoContent() : NotFound();
+        }
     }
 }

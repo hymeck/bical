@@ -5,9 +5,9 @@ using Bical.Api.Responses;
 
 namespace Bical.Api.Mappings.BirthNotes
 {
-    public class CreateMapper : Profile
+    public class CreateCommandMapper : Profile
     {
-        public CreateMapper()
+        public CreateCommandMapper()
         {
             CreateMap<CreateBirthNoteCommand, BirthNote>();
         }
