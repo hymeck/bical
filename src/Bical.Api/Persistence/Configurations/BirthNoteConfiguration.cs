@@ -48,6 +48,13 @@ namespace Bical.Api.Persistence.Configurations
                 .HasColumnType("datetime")
                 .HasColumnName("modified")
                 .IsRequired(false);
+
+            builder
+                .Property(e => e.IsDeleted)
+                .HasColumnType("tinyint(1)")
+                .HasColumnName("deleted")
+                .IsRequired()
+                .HasDefaultValue(0);
         }
     }
 }
