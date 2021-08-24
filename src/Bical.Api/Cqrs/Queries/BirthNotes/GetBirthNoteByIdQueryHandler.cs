@@ -7,6 +7,7 @@ using Bical.Api.Responses;
 using LanguageExt;
 using LanguageExt.SomeHelp;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bical.Api.Cqrs.Queries.BirthNotes
 {
@@ -26,7 +27,8 @@ namespace Bical.Api.Cqrs.Queries.BirthNotes
             CancellationToken cancellationToken)
         {
             var entity = await _context.Context.Set<BirthNote>()
-                .FindAsync(new object[] {request.Id}, cancellationToken);
+                .FirstOrDefaultAsync(e => !e.IsDeleted && e.Id == request.Id, cancellationToken);
+            
             return entity != null
                 ? _mapper.Map<BirthNote, BirthNoteDtoResponse>(entity).ToSome()
                 : Option<BirthNoteDtoResponse>.None;

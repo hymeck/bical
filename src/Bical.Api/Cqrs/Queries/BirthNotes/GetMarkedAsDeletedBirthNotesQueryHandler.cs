@@ -11,26 +11,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bical.Api.Cqrs.Queries.BirthNotes
 {
-    public class GetBirthCalendarQueryHandler : IRequestHandler<GetBirthCalendarQuery, BirthNoteListDtoResponse>
+    public class GetMarkedAsDeletedBirthNotesQueryHandler : IRequestHandler<GetMarkedAsDeletedBirthNotesQuery, BirthNoteListDtoResponse>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetBirthCalendarQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetMarkedAsDeletedBirthNotesQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<BirthNoteListDtoResponse> Handle(GetBirthCalendarQuery request, CancellationToken cancellationToken)
+        public async Task<BirthNoteListDtoResponse> Handle(GetMarkedAsDeletedBirthNotesQuery request, CancellationToken cancellationToken)
         {
-            // todo: dependency rule violation but i don't care
-            var entities = await _context.Context
-                .Set<BirthNote>()
-                .FromSqlRaw("select * from birth where deleted = 0 order by dayofyear(dob)")
+            var entities = await _context
+                .Context.Set<BirthNote>()
+                .Where(e => e.IsDeleted)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
+            
             var dtos = _mapper.Map<List<BirthNote>, List<BirthNoteDtoResponse>>(entities);
+
             return new BirthNoteListDtoResponse(dtos);
         }
     }

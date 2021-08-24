@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -32,7 +33,7 @@ namespace Bical.Api.Cqrs.Queries.BirthNotes
             // todo: again
             var entities = await _context.Context
                 .Set<BirthNote>()
-                .FromSqlRaw("select * from birth where dayofyear(dob) between dayofyear({0}) and dayofyear({1}) order by dayofyear(dob)", nowStr, edgeStr)
+                .FromSqlRaw("select * from birth where deleted = 0 and dayofyear(dob) between dayofyear({0}) and dayofyear({1}) order by dayofyear(dob)", nowStr, edgeStr)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
 
